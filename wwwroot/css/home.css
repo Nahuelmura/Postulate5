@@ -1,0 +1,252 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap');
+
+@media (max-width: 768px) {
+    .titulo-home {
+        font-size: 1.5em; /* Tamaño más pequeño para pantallas más pequeñas */
+    }
+}
+
+
+
+
+
+
+
+
+.transition-text {
+    transition:  all 1s linear;
+    opacity: 0;
+}
+
+
+#textoSuperpuesto_home {
+    position: absolute;
+    top: 33%; /* Ajusta este valor para moverlo hacia arriba o abajo */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2em;
+    color: #f5f6fa;
+    transition: opacity 1s ease-in-out;
+    text-transform: uppercase;
+    text-shadow: 2px 2px 5px black;
+    font-weight: 900;
+    font-family: Arial, Helvetica, sans-serif;
+ 
+}
+
+
+
+
+@media (max-width: 768px) {
+    #textoSuperpuesto_home {
+        font-size: 1em; /* Tamaño más pequeño para pantallas más pequeñas */
+    }
+}
+.transition-text {
+    opacity: 0;
+}
+
+.sub {
+   
+    font-size: 1.5em;
+    color: #000;
+    text-align: center;
+    
+}
+
+.subtexto {
+    
+    font-size: 1.5em;
+    color: #000;
+    text-align: center;
+}
+
+
+
+
+.card_diseño
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    filter: blur(1px);
+    
+
+
+}
+
+
+.posicion_nombre_persona {
+    position: absolute;
+    top: 50px; 
+    left: 50%;
+    transform: translateX(-50%); 
+    font-size: 2.5em;
+    color: #f5f6fa;
+    text-shadow: 2px 2px 5px black;
+    
+}
+
+.titulo-home {
+    text-align: center;
+    color: #f5f6fa;
+    font-size: 2.5em;
+    align-items: center;
+    text-shadow: 2px 2px 5px black;
+    text-transform: uppercase;
+
+}
+
+
+/* 
+.container_segundo {
+    background-image: url('/img/carpintero inicio.jpg');
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+     
+    width: 100%; 
+    height: 90vh; 
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.container::before {
+    content: "";
+
+    opacity: 0.5;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  } */
+
+
+
+  .container_segundo {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/img/carpintero inicio.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 90vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; /* Limita el contenido al borde del contenedor */
+    opacity: 150%;
+}
+
+.container_segundo::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(26, 202, 132, 0.8); /* Color y opacidad */
+    clip-path: ellipse(150% 60% at 50% 0); /* Crea una forma semicircular ajustada */
+    transform: rotate(45deg); /* Rota la forma a 45 grados */
+    pointer-events: none;
+}
+
+@media (max-width: 768px) {
+    .container_segundo::before {
+   display: none;
+    }
+}
+
+
+
+
+
+.texto-card{
+    margin-left:1em ;
+}
+
+
+.cartas_card {
+    transition: transform 0.3s ease; /* Añade una transición suave */
+}
+
+.cartas_card:hover {
+    transform: scale(1.05); /* Agranda la carta un 5% */
+}
+
+
+
+.contenedor-boton {
+    margin-top: 500px; /* Ajusta el espacio superior si es necesario */
+    padding-top: 20em;
+}
+/* Media query para pantallas pequeñas */
+@media (max-width: 576px) {
+    .contenedor-boton .col-6 {
+        flex: 0 0 100%;
+        max-width: 100%;
+        font-size: 1em;
+    }
+}
+
+.button_slide_prueba {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+    margin-bottom: 10px; /* Espacio entre los botones */
+    
+}
+
+/* botones */
+
+.button_slide {
+    color: #FFF;
+    border: 2px solid #007bff;
+    border-radius: 0px;
+    padding: 18px 36px;
+    display: inline-block;
+    font-weight: 900;
+    font-size: 1.5em;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    background-color: rgba(0, 123, 255, 0.5); /* Fondo azul medio transparente */
+    box-shadow: inset 0 0 10px rgba(0, 123, 255, 0.5); /* Sombra interna difusa */
+    -webkit-transition: ease-out 0.4s;
+    -moz-transition: ease-out 0.4s;
+    transition: ease-out 0.4s;
+    white-space: nowrap;
+    
+}
+  .slide_down:hover {
+    box-shadow: inset 0 100px 0 0 #007bff;
+  }
+  
+  .slide_right:hover {
+    box-shadow: inset 400px 0 0 0 #007bff;
+  }
+  
+  .slide_left:hover {
+    box-shadow: inset 0 0 0 50px #007bff;
+  }
+  
+  .slide_diagonal:hover {
+    box-shadow: inset 400px 50px 0 0 #007bff;
+  }
+  
+  #outer {
+    width: 364px;
+    margin: 50px auto 0 auto;
+    text-align: center;
+  }

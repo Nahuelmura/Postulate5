@@ -1,0 +1,11 @@
+﻿@page
+@model LogoutModel
+
+<form method="post" id="logout-form"></form>
+
+@section Scripts {
+    <script>
+        // Envía automáticamente el formulario para ejecutar el cierre de sesión
+        document.getElementById('logout-form').submit();
+    </script>
+}

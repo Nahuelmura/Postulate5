@@ -1,0 +1,134 @@
+
+.conteiner-persona{
+    background: var(--bs-dark-bg-subtle)
+}
+
+
+
+/* formulario */
+
+.Felicitaciones{
+    height: 8em;
+    font-size: 50px;
+    display: flex;
+    justify-content: center; /* Centrado horizontal */
+    align-items: center; /* Centrado vertical */
+    text-align: center; /* Alineación del texto */
+    color: white;
+ 
+
+}
+
+.posicion_Link_perfil{
+    padding-top: 2em;
+    text-decoration: none;
+}
+.Link_perfil{
+    font-size: 1em;
+    margin-top: 50em;
+    text-decoration: none;
+}
+
+
+
+
+@media (max-width: 550px) {
+    .ocultar-en-550px {
+        display: none;
+    }
+}
+@media (max-width: 768px) {
+    .ocultar-en-768px {
+        display: none;
+    }
+}
+
+
+.fila-desactivada {
+    background-color: #f8d7da;  /* Rojo claro */
+    color: #721c24;             /* Rojo oscuro */
+}
+
+.fila-activa {
+    background-color: #d4edda;  /* Verde claro */
+    color: #155724;             /* Verde oscuro */
+}
+
+
+.texto3{
+    font-size: 1.7em;
+}
+
+
+
+/* Ocultar contenido adicional cuando la pantalla es de 550px o menos */
+@media (max-width: 550px) {
+    .ocultar-en-550px, .ocultar-en-550px ~ * {
+        display: none;
+        
+    }
+    
+    /* Asegurar que el formulario ocupe todo el ancho disponible */
+    .Contenedor-formulario .row {
+        display: flex;
+        justify-content: center;
+    }
+
+    .col-12 {
+        max-width: 100%;
+    }
+
+    .fondo_derecho{
+
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/img/apreton_estreche_de_manos.jpg'); background-size: cover;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        width: 100%;
+
+    }
+
+    .fondo_derecho::before {display: none;}
+}
+
+
+.fondo_derecho {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.5)), url('/img/apreton_estreche_de_manos.jpg'); background-size: cover;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    display: block;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    z-index: 0; /* Asegura que el contenedor principal esté encima del ::before */
+    padding: 20px; 
+  }
+  
+  .fondo_derecho::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(26, 202, 132, 0.8);
+    clip-path: ellipse(150% 60% at 50% 0);
+    transform: rotate(45deg);
+    pointer-events: none;
+    z-index: -1; /* Coloca la figura verde debajo del contenido */
+  }
+
+
+  
+  @media (max-width: 768px) {
+    .fondo_derecho {
+        position: static;
+        display: block;
+        padding: 10px; /* Agrega espacio para el contenido */
+        height: auto; /* Ajusta la altura automáticamente al contenido */
+    }
+}

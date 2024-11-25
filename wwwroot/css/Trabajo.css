@@ -1,0 +1,294 @@
+.fondo-vista-trabajo{
+    background-color: #2472c4;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.lugar {
+    text-align: center;
+}
+
+.card-container {
+    padding: 15px;
+}
+.contenedor-card_trabajo {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    border: solid 1px rgb(224, 217, 217);  
+    padding: 20px; /* Añade un poco de espacio alrededor */
+    margin: 2px; /* Añade margen para separar el contenedor del fondo */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Añade sombra al contenedor */
+    border-radius: 10px;
+    background-color: #f8efe0;
+}
+
+.card-items {
+    background-color: #fff; /* Color de fondo de las tarjetas */
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+    margin: 10px;
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+    width: 100%; /* Asegura que la tarjeta ocupe todo el espacio disponible */
+}
+
+.text-center {
+    text-align: center;
+}
+
+.posicion_filtro-trabajo{
+    padding-bottom: 1em;
+}
+
+.tamaniocard {
+    height: 30em;
+    width: 23em;
+    margin: 10px; /* Espacio entre tarjetas */
+    display: grid;
+    background-color: #dee5ec; /* Color de fondo de la tarjeta */
+    padding: 20px; /* Espaciado interno de la tarjeta */
+    border: 1px solid #8cb0d4; /* Borde de la tarjeta */
+    border-radius: 10px; /* Bordes redondeados */
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    grid-gap: 20px;
+    overflow: hidden; /* Oculta cualquier contenido desbordado */
+    overflow-y: scroll;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.card-text {
+    font-size: 1rem;
+    margin-bottom: 10px;
+    text-align: center;
+    overflow: hidden; /* Oculta cualquier contenido desbordado */
+    text-overflow: ellipsis; /* Añade puntos suspensivos al contenido desbordado */
+    white-space: nowrap; /* Evita que el texto se divida en varias líneas */
+}
+
+
+
+.boton-container {
+    display: flex;
+    justify-content: center; /* Centra el botón horizontalmente */
+    margin-bottom: 1rem; /* Opcional: agrega un margen inferior para separar del siguiente contenido */
+}
+
+.boton {
+    padding: 0.5rem 1.5rem; 
+    font-size: 1.25rem; /* Aumenta el tamaño del texto */
+    border-radius: 0.5rem;
+    background-color: #241199;
+}
+
+
+
+.parrafo_trabajo{
+    text-align: center;
+    color: #241199;
+
+}
+
+.Tamaño_input{
+    height: 6.5em;
+    text-overflow:clip;
+}
+
+
+.boton-container_trabajo
+{
+    display: flex;
+    justify-content: center; 
+    align-items: flex-start; 
+    margin-top: -3em; /* Ajusta este valor según sea necesario */
+  padding-bottom: 3em;
+  
+}
+
+.padin{
+    padding: 10px; 
+    background-color: #ffff;
+}
+
+.card-container-mis
+{
+     background-color: #2ca69f;
+}
+
+
+@media (max-width: 550px) {
+    .ocultar-en-550px {
+        display: none;
+    }
+}
+@media (max-width: 768px) {
+    .ocultar-en-768px {
+        display: none;
+    }
+}
+
+
+.titulo-vista-trabajo{
+    font-weight: 900;
+
+
+}
+
+
+/* clase de la card, altura, margin, pading */
+
+  
+.card-container-mis_trabajo{
+ 
+
+    transition: max-height 20s ease; /* Transición suave para la altura */
+    max-height: 188px; 
+    overflow: hidden; 
+    position: relative; 
+    margin-left: 5px;
+
+    border-left: 13px solid #0758aa; 
+    background-color: #6786ca; 
+}
+
+
+
+.card-container-mis_trabajo:hover {
+    max-height: 10000em; 
+  
+}
+
+
+  
+.card-container-mis_trabajo_VISTA{
+    top: -20px;
+ 
+    transition: max-height 20s ease;
+    max-height: 188px; 
+    overflow: hidden; 
+    position: relative;
+    margin-left: 5px; 
+
+    border-left: 13px solid #0758aa; 
+    background-color: #6786ca;
+    
+}
+
+
+
+.card-container-mis_trabajo_VISTA:hover {
+    max-height: 10000em; /* Altura expandida (ajústala según el contenido extra) */
+  
+}
+
+
+
+
+/* 
+.trabajo-profesion-color-0 { background-color: #d6f0eb; }
+.trabajo-profesion-color-1 { background-color: #aee1d8; } 
+.trabajo-profesion-color-2 { background-color: #86d3c4; } 
+.trabajo-profesion-color-3 { background-color: #5ec5b0; } 
+.trabajo-profesion-color-4 { background-color: #36b79c; } 
+.trabajo-profesion-color-5 { background-color: #2ca69f; } 
+.trabajo-profesion-color-6 { background-color: #259588; } 
+.trabajo-profesion-color-7 { background-color: #1f8372; }
+.trabajo-profesion-color-8 { background-color: #19725c; } 
+.trabajo-profesion-color-9 { background-color: #135045; } 
+.trabajo-profesion-color-10 { background-color: #0d4030; }  */
+
+
+.table-container_Postular{
+    width: 100%; /* Puedes ajustar el tamaño según necesites */
+   
+
+  margin: auto;
+
+}
+
+.card-container-mis_trabajo_detalle{
+    transition: max-height 0.5s ease; /* Transición suave para la altura */
+    max-height: auto; /* Altura inicial (ajústalo a tu contenido visible) */
+    overflow: hidden; /* Oculta el contenido que exceda la altura inicial */
+    position: relative; /* Asegura que el margen quede dentro del card */
+    margin-left: 5px; /* Añade un pequeño margen del lado izquierdo */
+    padding-left: 10px; /* Espacio adicional dentro de la tarjeta */
+    border-left: 13px solid #2ca69f; /* Color del borde izquierdo */
+    background-color: #2ca69f; /* Color de fondo de la tarjeta */
+}
+
+/* modal postular */
+
+.fondo_modal_postular
+{    background-image: url('/img/apreton_estreche_de_manos.jpg');
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+     
+
+}
+.texto_modal_postular {
+    text-align: center;
+    vertical-align: middle;
+}
+.btn-outline-secondary_boton {
+    display: flex;
+    justify-content: center; /* Centra el botón horizontalmente */
+    align-items: center; /* Centra el botón verticalmente */
+    margin: 0 auto; /* Centra el botón dentro de la celda */
+
+
+
+
+}
+th.texto_cabeza {
+    color: white !important; /* Forza el color blanco */
+    text-align: center;
+    font-weight: bold;
+}
+
+
+.tabla_contenedor{
+   
+
+    padding: 1em;
+    margin-left: 2em;
+    margin-right: 2em;
+}
+
+
+.fondo_modal{
+    background-image: url('/img/apreton_estreche_de_manos.jpg');
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+     
+ 
+   
+}
+
+
+
+
+/* Indicador de color */
+.indicador-color {
+    width: 10px;    /* Ajusta el tamaño según lo necesario */
+    height: 10px;
+    background-color: #2472c4; /* Color deseado */
+    border-radius: 50%; /* Hacerlo circular */
+    margin-right: 8px; /* Espacio entre el círculo y el texto */
+}
+
+
+
+
+
+
+
+
+

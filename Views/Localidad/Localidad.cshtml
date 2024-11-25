@@ -1,0 +1,86 @@
+<head>
+  <link rel="stylesheet" href="~/css/Localidad.css" asp-append-version="true" />
+</head>
+
+<body class="color">
+  <section class="">
+    <h1 class="titulo_pretacion text-center my-3"><i class="fa-solid fa-location-dot"></i>Localidades</h1>
+    <!-- Button trigger modal -->
+    <div class="boton-container_servicio">
+      <button type="button" class="btn10" data-bs-toggle="modal" data-bs-target="#ModalLocalidad">
+        <div class="sign">+</div>
+        <div class="text">Agregar</div>
+      </button>
+    </div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="ModalLocalidad" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="ModalTitulo"></h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+
+            <div class="mb-3">
+              <input type="hidden" id="LocalidadID" value="0" />
+              <label for="ProvinciaID" class="form-label">Elegir Provincia</label>
+              @Html.DropDownList("ProvinciaID", null, htmlAttributes: new { @class = "form-control" })
+            </div>
+
+
+            <div class=" mb-3">
+              <span class="input-group-text" id="addon-wrapping"></span>
+              <input type="hidden" id="LocalidadID" value="0">
+              <label for="nombreLocalidad" class="form-label">Nombre de Localidad</label>
+
+              <input type="text" class="form-control" id="nombreLocalidad" placeholder="Nombre de la localidad">
+
+              <span class="input-group-text" id="addon-wrapping"></span>
+              <input type="hidden" id="codigoPostal">
+              <label for="codigoPostal" class="form-label">Codigo Postal</label>
+
+              <input type="text" class="form-control" id="CodigoPostal" placeholder="Codigo Postal">
+            </div>
+
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" onclick="LimpiarModal();" class="btn btn-secondary"
+              data-bs-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-primary" onclick="GuardarLocalidad()"
+              id="btnGuardarLocalidad">Guardar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<div class="table-container_localidad">
+      <div class="tbl-administracion" style="overflow: hidden; border-radius: 20px;"></div>
+      <div class="table-responsive">
+  <table class="table table-hover table-striped" style="border-radius: 20px; overflow: hidden; width: 100%;">
+          <thead>
+            <tr>
+              <th class="texto_cabeza ocultar-en-550px ocultar-en-768px" style="background-color: #cbc5ee;">Provincia</th>
+              <th class="texto_cabeza" style="background-color: #cbc5ee;">Localidad</th>
+              <th class="texto_cabeza ocultar-en-550px ocultar-en-768px" style="background-color: #cbc5ee;">Codigo Postal</th>
+              <th class="texto_cabeza" style="background-color: #cbc5ee;">Editar </th>
+                 <th class="texto_cabeza" style="background-color: #cbc5ee;">Eliminar </th>
+             
+            </tr>
+          </thead>
+          <tbody id="tbody-Localidades"></tbody>
+        </table>
+      </div>
+  </div>
+   </div>
+  </section>
+
+
+  @section Scripts {
+    <script src="~/js/Localidad.1.0.0.js"></script>
+  }
+
+</body>

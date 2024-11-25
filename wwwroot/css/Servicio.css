@@ -1,0 +1,367 @@
+.color {
+    background-color: #2472c4;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+.container-servicio{
+    background: var(--bs-dark-bg-subtle);
+    height: 85vh;
+    width: 100%;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+}
+
+
+
+/* Contenedor de botones centrado */
+
+.boton-container {
+    display: flex;
+    justify-content: center; 
+    align-items: flex-start; 
+    
+  padding-top: 0;
+  padding-bottom: 2em;
+  
+ 
+    
+}
+
+.boton-container_servicio
+{
+    display: flex;
+    justify-content: center; 
+    align-items: flex-start; 
+    margin-top: -3em; /* Ajusta este valor según sea necesario */
+  padding-bottom: 3em;
+  
+}
+
+/* Estilo para los botones */
+.boton {
+    padding: 0.5rem 1.5rem; 
+    font-size: 1.25rem; /* Aumenta el tamaño del texto */
+    border-radius: 0.5rem;
+    background-color: #241199;
+}
+
+/* Contenedor card   texto centrado */
+.card-items {
+    background-color: #f8f9fa; 
+    padding: 20px;            
+    border: 1px solid #dee2e6; 
+    border-radius: 10px;       
+    height: 100%;              
+    margin-bottom: 100em;
+    text-align: center; /* Centrar texto dentro del contenedor */
+}
+
+/* Estilo para las card */
+.tamaniocard {
+    height: 25em;
+    width: 24em;
+    margin: 10px; 
+    display: grid;
+    background-image: url("/wwwroot/lib/img/albañil.jpeg");
+    background-color: #bbc5cf; 
+    padding: 20px; 
+    border: 1px solid #dee2e6; 
+    border-radius: 10px; 
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    grid-gap: 20px;
+    background-size: cover;
+    text-align: center; /* Centrar texto dentro del contenedor */
+}
+
+/* Estilo para el título card  */
+.card-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    text-align: center; /* Centrar el texto del título */
+}
+
+
+
+.titulo_pretacion  {
+    font-size: 4em;
+    color: #f8f8f8;
+ 
+   
+    font-weight: bold;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+@media (max-width: 768px) {
+    .titulo_pretacion {
+      font-size: 3rem; /* Ajusta el tamaño del título en pantallas medianas */
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .titulo_pretacion {
+      font-size: 3rem; /* Ajusta el tamaño del título en pantallas pequeñas */
+    }
+  }
+
+/* Estilo para el texto card  */
+.card-text {
+    font-size: 1rem;
+    margin-bottom: 10px;
+    text-align: center; /* Centrar el texto dentro del contenedor */
+}
+
+/* Estilo para la sección de profesión */
+.profesion-group h3 {
+    text-align: center;
+    margin-bottom: 20px; /* Separación inferior del título */
+}
+
+/* Contenedor de tarjetas */
+/* .card-container {
+    padding: 15px;
+} */
+
+/* Estilo para los elementos de la tarjeta */
+.card-items {
+    background-color: #f8f9fa; 
+    padding: 20px;            
+    border: 1px solid #dee2e6; 
+    border-radius: 10px;       
+    height: 100%;              
+    margin-bottom: 100em;
+    text-align: center; /* Centrar texto dentro del contenedor */
+}
+
+/* Ajuste de tamaño y estilo para tarjetas */
+.tamaniocard {
+    height: 25em;
+    width: 24em;
+    margin: 10px; 
+    display: grid;
+    background-image: url("/wwwroot/lib/img/albañil.jpeg");
+    background-color: #bbc5cf; 
+    padding: 20px; 
+    border: 1px solid #dee2e6; 
+    border-radius: 10px; 
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    grid-gap: 20px;
+    background-size: cover;
+    text-align: center; /* Centrar texto dentro del contenedor */
+}
+
+
+
+
+  .lugar{
+    text-align: center;
+    font-size: 2em;
+  }
+
+  #perfilContainer {
+    background-color: #f7f7f7;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.textoh3 {
+    font-size: 0.5rem;
+    color: #333;
+}
+
+.textoh2 {
+    font-size: 1.5rem;
+    color: #007bff;
+}
+
+.titulo-card-vista{
+    font-size: 10em;
+}
+
+.color-Card{
+    
+    background-color: #1856d3;
+}
+  
+
+.parrafo_servicio{
+    text-align: center;
+    color: White;
+    font-size: 1.4em;
+}
+
+
+.Tamaño_input{
+    height: 6.5em;
+    text-overflow:clip;
+}
+
+
+
+
+.cuerpo_imagen {
+   
+
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    margin: 0; 
+    padding-bottom: 1em;
+}
+
+.texto {
+    font-size: 2rem;
+    color:#ffff;
+    text-align: center;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+.transition-text {
+    transition:  all 1s linear;
+    opacity: 0;
+}
+
+
+/* Contenedor principal */
+.contenedor-card {
+ background: radial-gradient(circle, #cfcedd, #cfcedd); 
+    color: white; /* Color del texto del contenedor */
+    padding: 20px; /* Asegura espacio para evitar que se superpongan */
+    margin-right: 5px;
+
+  }
+  
+
+
+
+  
+/* Estilos iniciales de la tarjeta */
+.card-container-mis{
+    transition: max-height 0.5s ease; /* Transición suave para la altura */
+    max-height: 188px; /* Altura inicial (ajústalo a tu contenido visible) */
+    overflow: hidden; /* Oculta el contenido que exceda la altura inicial */
+    position: relative; /* Asegura que el margen quede dentro del card */
+    margin-left: 5px; /* Añade un pequeño margen del lado izquierdo */
+    padding-left: 10px; /* Espacio adicional dentro de la tarjeta */
+    border-left: 0.5 solid #c7cdd3; /* Color del borde izquierdo */
+    background-color: #6786ca; /* Color de fondo de la tarjeta */
+}
+
+
+.card-container-mis:hover {
+    max-height: 10000em; /* Altura expandida (ajústala según el contenido extra) */
+  
+}
+
+
+
+
+#textoSuperpuesto {
+    position: relative;
+    top: 20px; 
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1; 
+    width: 100%; 
+    text-align: center;
+}
+
+#perfilContainer .col {
+    flex: 1; 
+    min-width: 200px; 
+    
+}
+
+
+
+#perfilContainer {
+
+    padding: 0; 
+    margin: 0; 
+}
+
+/* 
+datos personales */
+
+.Datos_personales {
+    background-color: transparent; 
+    padding-top: 1em;
+    margin: 0;
+}
+
+.texto-datos-personales
+{
+    text-align: center;
+    color: #ffff;
+    text-shadow: 2px 2px 5px black;
+}
+
+.color-texto
+{
+    color: white;
+    text-shadow: 2px 2px 5px black;
+    text-align: center;
+}
+
+.posicion_boton {
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    margin: 0 auto; 
+}
+
+
+
+
+.pading_datos_personales
+{
+    padding-left: 2em;
+    padding-top: 0.3em;
+}
+
+
+
+/* fondo_modal_servicio_solicitado */
+
+
+.fondo_modal_servicio_solicitado
+{
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/img/imagen_vacuna.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.texto-servicios-solicitados {
+    color: #ffffff; 
+    background-color: #1e90ff; 
+    border: 2px solid #ffffff; 
+    border-radius: 10px; 
+    padding: 15px 20px; 
+    font-size: 18px; 
+    font-weight: bold; 
+    text-align: center; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+    margin: 20px auto; 
+    max-width: 500px; 
+    animation: fadeIn 1s ease-in-out; 
+}
+
+/* Efecto de animación para que aparezca suavemente */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+@media (max-width: 768px) {
+    .texto-servicios-solicitados {
+        font-size: 16px; /* Fuente más pequeña en pantallas pequeñas */
+        padding: 10px 15px; /* Menor espacio interno */
+    }
+}

@@ -1,0 +1,118 @@
+.fondo-vista-servicio{
+    background-color: #2472c4;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+.perfilBody{
+    padding-left: 6em;
+    background-color: #f8f9fa; 
+    padding: 20px;            
+    border: 1px solid #dee2e6; 
+    border-radius: 10px;       
+    height: 100%;              
+    margin-bottom: 100em;   
+        
+}
+
+
+
+.textoh2{
+    text-align: center;
+}
+
+.textovista{
+  
+
+color: black; 
+}
+
+.textoh4{
+    text-align: center;
+    font-size: 2em;
+    color: blueviolet;
+
+}
+
+.boton{
+    padding: 1rem 2rem; 
+    font-size: 5rem; 
+    border-radius: 0.5rem;
+}
+
+.titulo-card-vista{
+    font-size: 2em;
+    text-align: center;
+}
+
+.input{
+    align-items: center;
+}
+  
+.input_Buqueda{
+  text-align: center;
+    font-size: 1.5em;
+    color: white;
+}
+
+
+.posicion_filtro{
+    padding-bottom: 1em;
+}
+
+.ubicacion_input{
+    text-align: center;
+}
+
+
+
+  .contenedor-card-vistaservicio .card{}
+
+  
+  .card-container-mis-vista{
+    top: -15px;
+
+    transition: max-height 20s ease;
+    max-height: 200px; /* Altura inicial (ajústalo a tu contenido visible) */
+    overflow: hidden; /* Oculta el contenido que exceda la altura inicial */
+    position: relative; /* Asegura que el margen quede dentro del card */
+    margin-left: 5px; /* Añade un pequeño margen del lado izquierdo */
+    padding-left: 10px; /* Espacio adicional dentro de la tarjeta */
+    border-left: 0.5 solid #0758aa; /* Color del borde izquierdo */
+    background-color: #6786ca; /* Color de fondo de la tarjeta */
+    
+}
+
+
+
+.card-container-mis-vista:hover {
+    max-height: 10000em; /* Altura expandida (ajústala según el contenido extra) */
+  
+}
+
+
+.color-card{
+    background-color: #ffff;
+}
+
+
+
+
+.titulo-vista{
+    font-weight: 900;
+}
+
+
+
+/* Colores suaves en escala de verde */
+.profesion-color-0 { background-color: #d4e3f5; } /* Azul claro 1 */
+.profesion-color-1 { background-color: #a7c8eb; } /* Azul claro 2 */
+.profesion-color-2 { background-color: #7aadde; } /* Azul claro 3 */
+.profesion-color-3 { background-color: #4d92d3; } /* Azul claro 4 */
+.profesion-color-4 { background-color: #2472c4; } /* Color base */
+.profesion-color-5 { background-color: #1f65b1; } /* Azul oscuro 1 */
+.profesion-color-6 { background-color: #1a5a9f; } /* Azul oscuro 2 */
+.profesion-color-7 { background-color: #154f8d; } /* Azul oscuro 3 */
+.profesion-color-8 { background-color: #11457b; } /* Azul oscuro 4 */
+.profesion-color-9 { background-color: #0d3b69; } /* Azul oscuro 5 */
+.profesion-color-10 { background-color: #093158; } /* Azul oscuro 6 */
+.profesion-color-11 { background-color: #052747; } /* Azul oscuro 7 */
+

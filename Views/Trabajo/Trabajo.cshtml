@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Trabajos</title>
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="~/css/Trabajo.css" asp-append-version="true" />
+    <script src="~/js/Trabajo.1.0.0.js"></script>
+      <script src="~/js/Servicio.1.0.0.js"></script>
+  <link rel="stylesheet" href="~/css/Servicio.css" asp-append-version="true" />
+</head>
+
+<body class="fondo-vista-trabajo">
+    <h1 class="titulo_pretacion text-center my-3">Servicios Solicitados <i class="fa-solid fa-screwdriver-wrench"></i></h1>
+    <p class="parrafo_servicio"><i class="fa-solid fa-circle-exclamation"></i> En esta seccion se encuentan tus Servicios solicitados a otros usuarios de PosKtulate</p>
+    <!-- Botón -->
+    <div class="boton-container_trabajo">
+        <button type="button" class="btn10 " data-bs-toggle="modal"
+            data-bs-target="#agregarTrabajo"> <i class="fa-solid fa-plus boton_agregar"></i> Agregar Trabajo</button>
+    </div>
+    <!--  Contenedor  card -->
+    <div class="contenedor-card_trabajo" id="TrabajoID">
+        <div id="contenedorCards" class="row"></div>
+    </div>
+
+   
+    <div class="modal fade" id="agregarTrabajo" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog  modal-xl">
+            <div class="modal-content modal_style">
+                <div class="modal-header">
+                    <h1 class="modal-title" id="exampleModalLabel" style="color: white;">Nuevo Trabajo</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form  method="post" class="row g-3">
+                        <input type="hidden" id="TrabajoID" value ="0">
+                          
+    
+                        <input type="hidden" id="PersonaID" value="@ViewBag.PersonaIDLogueada" />
+  <div class="col-md-6">
+        <div class="mb-3">
+            <label for="NombrePersona" class="form-label">Nombre</label>
+            <input type="text" id="NombrePersona" class="form-control form-control-lg"
+                   value="@ViewBag.NombrePersonaLogueada" readonly />
+        </div>
+
+        <div class="mb-3">
+            <label for="direccion" class="form-label">Direccion</label>
+            <input type="text" id="direccion" class="form-control form-control-lg" placeholder="Direccion">
+              <small class="form-text text-muted " style="color: red;">Agrega una direccion donde se encuentre el requerimiento a solucionar </small>
+        </div>
+
+     <div class="mb-3">
+        <label for="fecha" class="form-label">Fecha</label>
+        <input type="date" id="fecha" name="fecha" class="form-control form-control-lg"
+               value="@DateTime.Now.ToString("yyyy-MM-dd")">
+    </div>
+        <div class="mb-3">
+            <label for="hora" class="form-label">Hora solicitada</label>
+            <input type="datetime-local" id="hora" class="form-control"
+                   value="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")">
+        </div>
+    </div>
+                             <div class="col-md-6">
+        <div class="mb-3">
+            <label for="ProfesionID" class="form-label">Profesion</label>
+            @Html.DropDownList("ProfesionID", null, htmlAttributes: new { @class = "form-control form-control-lg" })
+              <small class="form-text text-muted " style="color: red;">Elige tu profesión en la que necesites ayuda.</small>
+        </div>
+
+        <div class="mb-3">
+            <label for="comentario" class="form-label">Comentario</label>
+            <input type="text" id="comentario" class="form-control Tamaño_input" placeholder="Comentario">
+             <small class="form-text text-muted " style="color: red;">Agrega un Comentario que de detalles del requerimiento que deseas satisfacer.</small>
+        </div>
+
+        <div class="mb-3">
+            <label for="descripcion" class="form-label">Descripción</label>
+            <input type="text" id="descripcion" class="form-control Tamaño_input" placeholder="Descripción">
+             <small class="form-text text-muted " style="color: red;">Por favor, proporciona una descripción detallada del requerimiento que deseas satisfacer.</small>
+        </div>
+    </div>
+                     
+                    </form>
+                </div>
+                <div class="modal-footer">
+               <button type="button" class="btn btn-secondary" onclick="LimpiarModal()" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" onclick="agregarTrabajo()">Guardar cambios</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+<!-- Modal para mostrar servicios -->
+<div class="modal fade" id="serviciosModal" tabindex="-1" role="dialog" aria-labelledby="serviciosModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content fondo_modal_postular">
+      <div class="modal-header">
+        <h5 class="modal-title" id="serviciosModalLabel">Personas con Servicios relacionados con Este trabajo</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </button>
+      </div>
+      
+      
+      <div class="modal-body">
+        <div class="table-container_Postular">
+          <table class="table table-bordered "style="overflow: hidden; border-radius: 10px;">
+            <thead>
+              <tr>
+                <th style="background-color: #2472c4; color: aliceblue; text-align: center;">Persona que ofrece el servicio</th>
+                <th style="background-color: #2472c4; color: aliceblue; text-align: center;">Solicitar</th>
+              </tr>
+            </thead>
+            <tbody id="tbody-Contratos">
+              <!-- Aquí se insertarán las filas dinámicamente -->
+            </tbody>
+          </table>
+        </div>
+       </div>
+  
+      <div class="modal-footer">
+   <button type="button" onclick="LimpiarModal();" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+@* tabla de solicitudes *@
+@* 
+<div>
+    <h1>Servicios solicitados</h1>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th >Fecha de Solicitud</th>
+            <th>Nombre del solicitante</th>
+              <th class="ocultar-en-550px">Comentario</th>
+               <th class="ocultar-en-550px" >Descrpcion del trabajo </th>
+        </tr>
+    </thead>
+    <tbody id="solicitudesPendientesBody">
+
+</div>
+ *@
+
+
+
+@* <div>
+         <h1>Trabajos Postulados </h1>
+       
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Comentario del Trabajo</th>
+                    <th>Descripción del Trabajo</th>
+                
+                    <th>Nombre del Persona que ofrece el Servicio</th>
+                    <th>Respuesta</th>
+                    <th>Fecha de Postulación</th>
+                </tr>
+            </thead>
+            <tbody id="tablaTrabajosPostulados">
+                <!-- Los datos se cargarán aquí dinámicamente -->
+            </tbody>
+        </table>
+    </div> *@
+
+       
+
+    @* </tbody>
+</table>
+
+ *@
+
+
+
+
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="ModalVistaPersona" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+ <div class="modal-dialog modal-xl">
+    <div class="modal-content fondo_registro_modal">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <input type="hidden" id="PersonaID" value="0">
+
+
+
+
+                <form>
+    <div class="row">
+        <div class="col-12 col-md-6 mb-3">
+            <label for="LocalidadID" class="form-label" style="color: white;">Ciudad</label>
+            @Html.DropDownList("LocalidadID",null, htmlAttributes: new { @class = "form-control",  id = "LocalidadID"})
+        </div>
+
+
+
+
+
+        <div class="col-12 col-md-6 mb-3">
+            <label for="nombre" class="form-label " style="color: white;">Nombre</label>
+            <input type="text" class="form-control" placeholder="nombre" id="nombre" aria-label="Nombre" aria-describedby="basic-addon2" oninput="validarTexto(this)">
+        </div>
+
+        <div class="col-12 col-md-6 mb-3">
+            <label for="apellido" class="form-label" style="color: white;">Apellido</label>
+            <input type="text" class="form-control" placeholder="apellido" id="apellido" aria-label="Apellido" aria-describedby="basic-addon2" oninput="validarTexto(this)">
+        </div>
+
+        <div class="col-12 col-md-6 mb-3">
+            <label for="edad" class="form-label" style="color: white;">Edad</label>
+            <input type="number" class="form-control" placeholder="edad" id="edad" aria-label="Edad" aria-describedby="basic-addon2 " oninput="validarEdad(this)">
+        </div>
+
+        <div class="col-12 col-md-6 mb-3">
+            <label for="telefono" class="form-label"style="color: white;">Teléfono</label>
+            <input type="number" class="form-control" placeholder="telefono" id="telefono" aria-label="Teléfono" aria-describedby="basic-addon2" oninput="validarEdad(this)">
+        </div>
+
+        <div class="col-12 col-md-6 mb-3">
+            <label for="documento" class="form-label" style="color: white;">Documento</label>
+            <input type="number" class="form-control" placeholder="documento" id="documento" aria-label="Documento" aria-describedby="basic-addon2" oninput="validarEdad(this)">
+        </div>
+
+        <div class="col-12">
+            <p class="posicion_Link_perfil" >
+                <a class="Link_perfil" style="color: white;" id="forgot-password" href="@Url.Page("/Account/ForgotPassword", new { area = "Identity" })">
+                    ¿Quiere cambiar la contraseña?
+                </a>
+            </p>
+        </div>
+    </div>
+</form>
+
+
+
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary" onclick="GuardarPerfil()">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="row">
+  <!-- Contenedor de datos personales -->
+  <div class="Datos_personales col-md-6">
+    <div class="row justify-content-center mt-4">
+      <h6 class="texto-datos-personales">Mis datos personales</h6>
+      <div id="perfilContainer" class="col-12 col-md-8 mx-auto"></div>
+    </div>
+  </div>
+
+  <!-- Contenedor de mis servicios -->
+  <div class="Datos_personales col-md-6">
+    <h1 class="texto">¿Que es Servicios Solicitados?</h1>
+    <P class="texto">Es tu oportunidad de ofrecer tus ofertas laborales y dar a conocer las necesidades que deseas satisfacer,  conectándote con especialistas en el rubro. Aquí podrás encontrar profesionales  para tareas específicas o servicios especializados que hagan tu vida más fácil</P>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="modal fade" id="miModal" tabindex="-1" role="dialog" aria-labelledby="miModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content fondo_modal">
+            <div class="modal-header">
+                <h5 class="modal-title" id="miModalLabel">Respuestas de de trabajo</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+
+
+
+   </div>
+    @* <!--  Contenedor  card -->
+    <div class="contenedor-card_trabajo" id="TrabajoID">
+        <div id="contenedorCardsmodal" class="row"></div>
+    </div> *@
+
+
+          
+<div class="table-responsive-sm tabla_contenedor  ">
+                <table class="table table-hover  table-bordered table-striped">
+                    @* <thead>
+                        <tr>
+                        <th class="texto_cabeza" style="background-color: #2472c4;">Comentario del Trabajo</th>
+                            <th class="texto_cabeza" style="  background-color: #2472c4;">Descripción del Trabajo</th>
+                            <th class="texto_cabeza" style="  background-color: #2472c4;">Nombre del Persona que ofrece el Servicio</th>
+                            <th class="texto_cabeza" style="  background-color: #2472c4;">Respuesta</th>
+                            <th class="texto_cabeza" style="  background-color: #2472c4;">Fecha de Postulación</th>
+                        </tr>
+                    </thead> *@
+           
+                        <!-- Los datos se cargarán aquí dinámicamente -->
+
+                        <div id="respuestaTrabajosPostulados"></div>
+                    </tbody>
+                </table>
+            </div>
+</div>
+            <div class="modal-footer">
+                <button type="button" onclick="LimpiarModal();" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+    
+
+    @section Scripts {
+        <script src="~/js/Trabajo.1.0.0.js"></script>
+    }
+</body>
+
+</html>
+ 

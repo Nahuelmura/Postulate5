@@ -1,0 +1,108 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+<link rel="stylesheet" href="~/lib/MDB5/css/mdb.min.css" asp-append-version="true" />
+<script src="~/js/VistaPersonaPerfil1.0.0.js"></script>
+<script src="~/js/Persona.1.0.0.js"></script>
+
+
+
+
+
+<div class="container_segundo">
+    <div class="">
+        <div class="row justify-content-center"> <!-- Esto centra los elementos horizontalmente -->
+            <div class="col-md-7 text-center">
+                <section class=" text-center my-5 titulo-home-wrapper">
+                    <h1 class="titulo-home display-4 posicion_nombre_persona">Bienvenido @ViewBag.NombrePersona</h1>
+                </section>
+                <div class="row">
+                    <div class=" col-md-12"> <!-- Contenedor del texto que cambia -->
+                        <div class="texto" id="textoSuperpuesto_home">
+                            Bienvenido a Postulate.Com
+                        </div>
+                    </div>
+
+
+
+                    <div class="row contenedor-boton">
+                        <div class="col-6">
+                             <a href="@Url.Action("Index", "Trabajo")"  class="btn10 ">Servicios ofrecidos </a>
+                        </div>
+                        <div class="col-6">
+                            <a href="@Url.Action("Index", "Servicios")" class="btn10">Servicios Solicitados</a>
+                        </div>
+                    </div>
+
+
+
+
+                    <script>
+
+
+
+
+                        const textos = [
+
+                            'Ofrece Tus habilidades  en Mis Prestaciones ',
+                            'Solicita la ayuda de profesionales en Mis trabajos Postulados',
+                            'muchas personas estan esperando tu ayuda.',
+
+                        ];
+
+                        let currentTextIndex = 0;
+
+                        function changeText() {
+                            const textoElemento = document.getElementById('textoSuperpuesto_home');
+                            textoElemento.classList.add('transition-text'); // Añade la clase para suavizar la transición
+
+                            setTimeout(() => {
+                                currentTextIndex = (currentTextIndex + 1) % textos.length; // Cambia al siguiente texto
+                                textoElemento.textContent = textos[currentTextIndex]; // Cambia el contenido del texto
+                                textoElemento.classList.remove('transition-text'); // Remueve la clase después de cambiar
+                            }, 1000); // Tiempo de transición entre textos
+                        }
+
+                        setInterval(changeText, 5000); // Cambia el texto cada 5 segundos
+
+
+                    </script>
+
+
+
+
+                    @* alerta de solicitudes servicios ofrecidos*@
+
+
+                    <script>
+                        $(document).ready(function () {
+                            $.ajax({
+                                url: '/ContratoRespondido/MostarAlertaServiciosOfrecidos',
+                                type: 'POST',
+                                dataType: 'json',
+                                success: function (response) {
+                                    if (response.mostrarAlerta) {
+                                        Swal.fire({
+                                            title: 'Solicitudes Pendientes',
+                                            html: response.mensaje + '<br><br><a href="http://localhost:5104/Servicios" class="btn">Servicios Ofrecidos</a>',
+                                            icon: 'info',
+                                            showConfirmButton: true,
+                                            confirmButtonText: 'Aceptar'
+                                        });
+                                    }
+                                },
+                                error: function (xhr, status, error) {
+                                    console.error("Error al obtener solicitudes: ", error);
+                                    Swal.fire({
+                                        title: 'Error',
+                                        text: 'Ocurrió un error al comprobar las solicitudes.',
+                                        icon: 'error',
+                                        confirmButtonText: 'Aceptar'
+                                    });
+                                }
+                            });
+                        });
+                    </script>
