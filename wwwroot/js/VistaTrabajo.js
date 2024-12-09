@@ -36,7 +36,11 @@ function CardTrabajos() {
                                                 <div class="card-body color-card">
                                                     <p class="textovista"><strong><i class="fa-regular fa-user"></i> Nombre:</strong> ${persona.nombrePersona}</p>
                                                     <p><strong> <i class="fa-regular fa-user"></i> Apellido:</strong> ${persona.apellidoPersona}</p>
-                                                    <p><strong> <i class="fa-solid fa-phone"></i> Teléfono:</strong> ${persona.telefonoPersona}</p>
+                                                   <p class="textovista"><i class="fa-solid fa-phone"></i> Teléfono: 
+                                                                                   <a href="https://wa.me/${persona.telefonoPersona}" target="_blank"> 
+                                                                                       ${persona.telefonoPersona}
+                                                                                             </a>
+                                                                                               </p>
                                                      <p><strong><i class="fa-solid fa-location-dot"></i> Dirección:</strong> ${persona.direccion}</p>
                                                      <p><strong><i class="fa-solid fa-list"></i> Descripción:</strong>  ${persona.descripcion}</p>
                                                     <p><strong><i class="fa-regular fa-clock"></i> Hora:</strong> ${persona.hora}</p>

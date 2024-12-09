@@ -14,7 +14,7 @@
 
 <body class="fondo-vista-trabajo">
     <h1 class="titulo_pretacion text-center my-3">Servicios Solicitados <i class="fa-solid fa-screwdriver-wrench"></i></h1>
-    <p class="parrafo_servicio"><i class="fa-solid fa-circle-exclamation"></i> En esta seccion se encuentan tus Servicios solicitados a otros usuarios de PosKtulate</p>
+    <p class="parrafo_servicio"><i class="fa-solid fa-circle-exclamation"></i> En esta seccion se encuentan tus Servicios solicitados a otros usuarios de Postulate</p>
     <!-- Botón -->
     <div class="boton-container_trabajo">
         <button type="button" class="btn10 " data-bs-toggle="modal"
@@ -287,60 +287,109 @@
 
 
 
+@* modals de las respuestas de trabajo pendientes, aceptados,rechazados *@
 
 
 
 
 
 
-
-
-
-<div class="modal fade" id="miModal" tabindex="-1" role="dialog" aria-labelledby="miModalLabel" aria-hidden="true">
+<div class="modal fade" id="miModalTodos" tabindex="-1" role="dialog" aria-labelledby="miModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content fondo_modal">
             <div class="modal-header">
-                <h5 class="modal-title" id="miModalLabel">Respuestas de de trabajo</h5>
+                <h5 class="modal-title" id="miModalLabel">Respuestas de trabajo</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-
             <div class="modal-body">
+                <!-- Contenedor para trabajos postulados -->
+                @* <h6 class="mb-3">Trabajos Postulados</h6> *@
+                <div id="respuestaTrabajosPostulados"></div>
+                @* <hr>
+                <!-- Contenedor para trabajos rechazados -->
+                <h6 class="mb-3">Trabajos Rechazados</h6>
+                <div id="respuestaTrabajosPostuladosRechazados"></div>
 
+                <h6 class="mb-3">Trabajos Rechazados</h6>
+                <div id="respuestaTrabajosPostuladosAceptados"></div>
+ *@
 
-
-   </div>
-    @* <!--  Contenedor  card -->
-    <div class="contenedor-card_trabajo" id="TrabajoID">
-        <div id="contenedorCardsmodal" class="row"></div>
-    </div> *@
-
-
-          
-<div class="table-responsive-sm tabla_contenedor  ">
-                <table class="table table-hover  table-bordered table-striped">
-                    @* <thead>
-                        <tr>
-                        <th class="texto_cabeza" style="background-color: #2472c4;">Comentario del Trabajo</th>
-                            <th class="texto_cabeza" style="  background-color: #2472c4;">Descripción del Trabajo</th>
-                            <th class="texto_cabeza" style="  background-color: #2472c4;">Nombre del Persona que ofrece el Servicio</th>
-                            <th class="texto_cabeza" style="  background-color: #2472c4;">Respuesta</th>
-                            <th class="texto_cabeza" style="  background-color: #2472c4;">Fecha de Postulación</th>
-                        </tr>
-                    </thead> *@
-           
-                        <!-- Los datos se cargarán aquí dinámicamente -->
-
-                        <div id="respuestaTrabajosPostulados"></div>
-                    </tbody>
-                </table>
+                
             </div>
-</div>
             <div class="modal-footer">
                 <button type="button" onclick="LimpiarModal();" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
             </div>
         </div>
     </div>
 </div>
+
+
+
+
+<div class="modal fade" id="miModalRechazados" tabindex="-1" role="dialog" aria-labelledby="miModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content fondo_modal_rechazado">
+            <div class="modal-header"><h6></h6>
+                <h5 class="modal-title" id="miModalLabel">Aqui se encuentran las solicitudes que enviaste y fueron rechazadas </h5> 
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                @* <!-- Contenedor para trabajos postulados -->
+                <h6 class="mb-3">Trabajos Postulados</h6>
+                <div id="respuestaTrabajosPostulados"></div>
+                <hr> *@
+                <!-- Contenedor para trabajos rechazados -->
+                @* <h6 class="mb-3">Trabajos Rechazados</h6> *@
+                <div id="respuestaTrabajosPostuladosRechazados"></div>
+@* 
+                <h6 class="mb-3">Trabajos Rechazados</h6>
+                <div id="respuestaTrabajosPostuladosAceptados"></div>
+ *@
+
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" onclick="LimpiarModal();" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="miModalaceptados" tabindex="-1" role="dialog" aria-labelledby="miModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content fondo_modal_aceptadas">
+            <div class="modal-header">
+                <h5 class="modal-title" id="miModalLabel">Aqui se encuentran las solicitudes que enviaste y fueron aceptadas</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Contenedor para trabajos postulados -->
+                @* <h6 class="mb-3">Trabajos Postulados</h6>
+                <div id="respuestaTrabajosPostulados"></div>
+                <hr>
+                <!-- Contenedor para trabajos rechazados -->
+                <h6 class="mb-3">Trabajos Rechazados</h6>
+                <div id="respuestaTrabajosPostuladosRechazados"></div> *@
+
+                <h6 class="mb-3">Trabajos aceptados</h6>
+                <div id="respuestaTrabajosPostuladosAceptados"></div>
+
+
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" onclick="LimpiarModal();" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
 
 
 

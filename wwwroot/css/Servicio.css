@@ -331,6 +331,28 @@ datos personales */
     background-repeat: no-repeat;
 }
 
+
+.fondo_modal_servicio_solicitado_rechazado
+{
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/img/Imagen_denegadas.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+
+.fondo_modal_servicio_solicitado
+{
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/img/aceptadas.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+
+
+fondo_modal_servicio_solicitado_rechazado
+
 .texto-servicios-solicitados {
     color: #ffffff; 
     background-color: #1e90ff; 

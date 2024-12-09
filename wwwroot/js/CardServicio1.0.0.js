@@ -24,17 +24,31 @@ function CardServicios() {
                                         <p><strong><i class="fa-solid fa-building-columns"></i> Instituto/Lugar que se especializo:</strong> ${persona.institucion}</p>
                                         <p><strong><i class="fa-solid fa-book"></i> Título en que se especializa:</strong> ${persona.titulo}</p>
                                         <p><strong><i class="fa-regular fa-file-lines"></i> Descripción del servicio:</strong> ${persona.descripcion}</p>
-                                        <div class="d-flex flex-column flex-md-row align-items-center gap-2 mt-3">
-                                            <button type="button" class="btn btn-outline-success" onclick="EditarServicio(${persona.servicioID})">
-                                                <i class="fa-regular fa-pen-to-square"></i> Editar
-                                            </button>
-                                            <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modalServicioSolicitado" onclick="ListadoServicioSolicitado(${persona.servicioID})">
-                                                <i class="fa-regular fa-pen-to-square"></i> Servicio solicitado
-                                            </button>
-                                            <button type="button" class="btn btn-outline-danger" onclick="EliminarServicio(${persona.servicioID})">
-                                                <i class="fa-regular fa-trash-can"></i> Eliminar
-                                            </button>
-                                        </div>
+
+                          <div class="d-flex flex-column gap-2">
+    <!-- Primera fila con tres botones -->
+    <div class="d-flex flex-row align-items-center gap-2">
+        <button type="button" class="btn btn-outline-success" onclick="EditarServicio(${persona.servicioID})">
+            <i class="fa-regular fa-pen-to-square"></i> Editar
+        </button>
+        <button type="button" class="btn btn-outline-danger" onclick="EliminarServicio(${persona.servicioID})">
+            <i class="fa-regular fa-trash-can"></i> Eliminar
+        </button>
+         <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modalServicioSolicitado" onclick="ListadoServicioSolicitado(${persona.servicioID})">
+            <i class="fa-regular fa-pen-to-square"></i> Servicio solicitado
+        </button>
+    </div>
+
+    <!-- Segunda fila con dos botones -->
+    <div class="d-flex flex-row align-items-center gap-2">
+        <button type="button" class="btn btn-outline-success" onclick="ListadoServicioSolicitadoAceptado(${persona.servicioID})">
+            <i class="fa-solid fa-check"></i> Solicitudes aceptadas
+        </button>
+        <button type="button" class="btn btn-outline-danger" onclick="ListadoServicioSolicitadoRechazado(${persona.servicioID})">
+            <i class="fa-solid fa-ban"></i> Solicitudes rechazadas
+        </button>
+    </div>
+</div>
                                     </div>
                                 </div>
                             </div>
@@ -58,12 +72,12 @@ function CardServicios() {
     });
 }
 function LimpiarModal() {
- 
-    document.getElementById("ServicioID").value = 0;  
-    document.getElementById("ProfesionID").selectedIndex = 0; 
-    document.getElementById("descripcion").value = "";  
-    document.getElementById("titulo").value = "";  
-    document.getElementById("institucion").value = "";  
+
+    document.getElementById("ServicioID").value = 0;
+    document.getElementById("ProfesionID").selectedIndex = 0;
+    document.getElementById("descripcion").value = "";
+    document.getElementById("titulo").value = "";
+    document.getElementById("institucion").value = "";
 }
 // Llama a la función para cargar las tarjetas al cargar la página
 document.addEventListener("DOMContentLoaded", CardServicios);

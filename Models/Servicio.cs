@@ -9,6 +9,9 @@ public class Servicio
     public int PersonaID { get; set; }
     public int ProfesionID { get; set; }
 
+   
+
+
     //public int? ImagenID { get; set; }
     public bool Herramienta { get; set; }
 

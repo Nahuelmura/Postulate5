@@ -19,6 +19,9 @@ namespace Postulate.Controllers
 
         public IActionResult Index()
         {
+
+            
+var ciudad = _context.Localidades.ToList();
             var profesiones = _context.Profesiones.ToList();
             profesiones.Add(new Profesion { ProfesionID = 0, Nombre = "[SELECCIONE...]" });
 
@@ -36,6 +39,10 @@ namespace Postulate.Controllers
 
             profesiones.Add(new Profesion { ProfesionID = 0, Nombre = "[Busca la profesion interesada ...]" });
             ViewBag.profesionBuscarID = new SelectList(profesiones.OrderBy(c => c.Nombre), "ProfesionID", "Nombre");
+
+
+              ciudad.Add(new Localidad { LocalidadID = 0, Nombre = "[Busca la Localidad interesada ...]" });
+            ViewBag.localidadbuscarID = new SelectList(ciudad.OrderBy(c => c.Nombre), "LocalidadID", "Nombre");
 
 
 
@@ -60,6 +67,8 @@ public JsonResult CardServicios(int? servicioID, int? ProfesionID)
     {
         servicios = servicios.Where(s => s.ProfesionID == ProfesionID).ToList();
     }
+
+    
     // Organizar los servicios por profesión
     foreach (var servicio in servicios)
     {

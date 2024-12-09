@@ -263,7 +263,8 @@ th.texto_cabeza {
 
 
 .fondo_modal{
-    background-image: url('/img/apreton_estreche_de_manos.jpg');
+
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/img/apreton_estreche_de_manos.jpg');
     background-size: cover; 
     background-position: center; 
     background-repeat: no-repeat; 
@@ -272,8 +273,24 @@ th.texto_cabeza {
    
 }
 
+.fondo_modal_rechazado
+{
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/img/Imagen_denegadas.jpg');
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+     
+}
 
+.fondo_modal_aceptadas
 
+{
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/img/aceptadas.jpg');
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+     
+}
 
 /* Indicador de color */
 .indicador-color {

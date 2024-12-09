@@ -255,7 +255,7 @@ namespace Postulate.Migrations
 
                     b.HasKey("ContratoRespondidoID");
 
-                    b.ToTable("ContratoRespondidos");
+                    b.ToTable("ContratoRespondidos", (string)null);
                 });
 
             modelBuilder.Entity("Postulate.Models.Imagen", b =>
@@ -280,7 +280,7 @@ namespace Postulate.Migrations
 
                     b.HasKey("ImagenID");
 
-                    b.ToTable("Imagen");
+                    b.ToTable("Imagen", (string)null);
                 });
 
             modelBuilder.Entity("Postulate.Models.Localidad", b =>
@@ -304,7 +304,7 @@ namespace Postulate.Migrations
 
                     b.HasIndex("ProvinciaID");
 
-                    b.ToTable("Localidades");
+                    b.ToTable("Localidades", (string)null);
                 });
 
             modelBuilder.Entity("Postulate.Models.Persona", b =>
@@ -343,7 +343,7 @@ namespace Postulate.Migrations
 
                     b.HasIndex("LocalidadID");
 
-                    b.ToTable("Personas");
+                    b.ToTable("Personas", (string)null);
                 });
 
             modelBuilder.Entity("Postulate.Models.Profesion", b =>
@@ -362,7 +362,7 @@ namespace Postulate.Migrations
 
                     b.HasKey("ProfesionID");
 
-                    b.ToTable("Profesiones");
+                    b.ToTable("Profesiones", (string)null);
                 });
 
             modelBuilder.Entity("Postulate.Models.Provincia", b =>
@@ -378,7 +378,7 @@ namespace Postulate.Migrations
 
                     b.HasKey("ProvinciaID");
 
-                    b.ToTable("Provincias");
+                    b.ToTable("Provincias", (string)null);
                 });
 
             modelBuilder.Entity("Postulate.Models.Servicio", b =>
@@ -413,7 +413,7 @@ namespace Postulate.Migrations
 
                     b.HasIndex("ProfesionID");
 
-                    b.ToTable("Servicios");
+                    b.ToTable("Servicios", (string)null);
                 });
 
             modelBuilder.Entity("Postulate.Models.Trabajo", b =>
@@ -459,7 +459,7 @@ namespace Postulate.Migrations
 
                     b.HasIndex("ProfesionID");
 
-                    b.ToTable("Trabajos");
+                    b.ToTable("Trabajos", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

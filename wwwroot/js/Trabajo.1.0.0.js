@@ -34,24 +34,36 @@ function CardTrabajos() {
                                         
                                        
                                      <div class="card-action mt-auto">
-    <div class="row">
-        <div class="col-12 col-md-6 d-flex flex-column gap-2 mt-3">
-            <button type="button" class="btn btn-outline-success me-1" onclick="EditarTrabajo(${persona.trabajoID})">
-                <i class="fa-regular fa-pen-to-square"></i> Editar
-            </button>
-            <button type="button" class="btn btn-outline-danger" onclick="EliminarTrabajo(${persona.trabajoID})">
-                <i class="fa-regular fa-trash-can"></i> Eliminar
-            </button>
-        </div>
-        <div class="col-12 col-md-6 d-flex flex-column gap-2 mt-3">
-            <button type="button" class="btn btn-outline-secondary mb-1" onclick="abrirModalPostular(${persona.trabajoID})">
-                <i class="fa-regular fa-paper-plane"></i> Postularme
-            </button>
-            <button type="button" class="btn btn-outline-secondary" onclick="ListadoTrabajosPostulados(${persona.trabajoID})">
-                <i class="fa-regular fa-paper-plane"></i> Ver respuestas
-            </button>
-        </div>
+<div class="row">
+    <!-- Columna Izquierda -->
+
+    
+    <div class="col-12 col-md-6 d-flex flex-column gap-2 mt-3">
+      <button type="button" class="btn btn-outline-secondary" onclick="abrirModalPostular(${persona.trabajoID})">
+            <i class="fa-regular fa-paper-plane"></i> Postularme
+        </button>
+        <button type="button" class="btn btn-outline-success me-1" onclick="EditarTrabajo(${persona.trabajoID})">
+            <i class="fa-regular fa-pen-to-square"></i> Editar
+        </button>
+        <button type="button" class="btn btn-outline-danger" onclick="EliminarTrabajo(${persona.trabajoID})">
+            <i class="fa-regular fa-trash-can"></i> Eliminar
+        </button>
+      
     </div>
+
+    <!-- Columna Derecha -->
+    <div class="col-12 col-md-6 d-flex flex-column gap-2 mt-3">
+        <button type="button" class="btn btn-outline-secondary" onclick="ListadoTrabajosPostulados(${persona.trabajoID})">
+         <i class="fa-solid fa-hourglass-start"></i> Respuestas
+        </button>
+        <button type="button" class="btn btn-outline-secondary" onclick="Buscartrabajorechazado(${persona.trabajoID})">
+          <i class="fa-solid fa-ban"></i> Rechazadas
+        </button>
+        <button type="button" class="btn btn-outline-secondary" onclick="BuscartrabajoAceptado(${persona.trabajoID})">
+           <i class="fa-solid fa-check"></i> Aceptadas
+        </button>
+    </div>
+</div>
 </div>
                                     </div>
                                 </div>
@@ -435,13 +447,236 @@ function ListadoTrabajosPostulados(trabajoID) {
             contenidoTarjetas += `</div>`;
             document.getElementById("respuestaTrabajosPostulados").innerHTML = contenidoTarjetas;
            
-            $('#miModal').modal('show');
+            $('#miModalTodos').modal('show');
         },
         error: function (xhr, status) {
             Swal.fire("Hubo un problema al cargar los trabajos postulados.", "", "error");
         }
     });
 }
+
+
+
+
+
+
+function Buscartrabajorechazado(trabajoID) {
+    $.ajax({
+        url: '/ContratoRespondido/Buscartrabajorechazado',
+        data: { trabajoID: trabajoID },
+        type: 'POST',
+        dataType: 'json',
+        success: function (trabajosPostulados) {
+            let contenidoModal = '';
+
+            // Validar si el backend devuelve un error
+            if (trabajosPostulados.success === false) {
+                contenidoModal = `
+                    <div class="text-center p-4">
+                        <h5 class="texto-servicios-solicitados">${trabajosPostulados.message}</h5>
+                    </div>`;
+                $('#respuestaTrabajosPostuladosRechazados').html(contenidoModal);
+                $('#miModalRechazados').modal('show');
+                return;
+            }
+
+            // Validar si no hay datos
+            if (trabajosPostulados.length === 0) {
+                contenidoModal = `
+                    <div class="text-center p-4">
+                       <h5 class="texto-servicios-solicitados" style="color: white;">No hay solicitudes disponibles para este servicio.</h5>
+                    </div>`;
+                $('#respuestaTrabajosPostuladosRechazados').html(contenidoModal);
+                $('#miModalRechazados').modal('show');
+                return;
+            }
+
+            // Limpiar el contenido previo antes de agregar las nuevas tarjetas
+            let contenedor = document.getElementById("respuestaTrabajosPostuladosRechazados");
+            contenedor.innerHTML = "";
+
+            // Crear contenido dinámico de tarjetas
+            let contenidoTarjetas = `<div class="row">`;
+            $.each(trabajosPostulados, function (index, trabajo) {
+                contenidoTarjetas += `
+                    <div class="col-sm-12 col-md-6 col-lg-4 mb-3">
+                        <div class="card-container-mis_l card-hoover tamanio-card" id="card-${trabajo.trabajoID}">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title text-center">Detalles del trabajo y Respuesta</h5>
+                                    <div class="contenido-extra mt-3">
+                                        <p><strong><i class="fa-solid fa-calendar"></i> Fecha de Postulación:</strong> ${trabajo.nombrePersona}</p>
+                                        <p><strong><i class="fa-regular fa-file-lines"></i> Descripción del Trabajo:</strong> ${trabajo.apellidoPersona}</p>
+                                        <p><strong><i class="fa-solid fa-comment"></i> Comentario:</strong> ${trabajo.descripcionTrabajo}</p>
+                                        <p><strong><i class="fa-solid fa-user"></i> Nombre Persona Servicio:</strong> ${trabajo.respuestaDesolicitudString}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`;
+            });
+
+            contenidoTarjetas += `</div>`;
+            contenedor.innerHTML = contenidoTarjetas;
+
+            // Mostrar el modal
+            $('#miModalRechazados').modal('show');
+        },
+        error: function (xhr, status) {
+            Swal.fire("Hubo un problema al cargar los trabajos postulados rechazados.", "", "error");
+        }
+    });
+}
+
+
+
+
+function BuscartrabajoAceptado(trabajoID) {
+    $.ajax({
+        url: '/ContratoRespondido/BuscartrabajoAceptado',
+        data: { trabajoID: trabajoID },
+        type: 'POST',
+        dataType: 'json',
+        success: function (response) {
+            let contenidoModal = '';
+            let contenedor = document.getElementById("respuestaTrabajosPostuladosAceptados");
+            
+            // Validar si la respuesta contiene un error
+            if (response.success === false) {
+                contenidoModal = `
+                    <div class="text-center p-4">
+                        <h5 class="texto-servicios-solicitados">${response.message}</h5>
+                    </div>`;
+                contenedor.innerHTML = contenidoModal;
+                $('#miModalaceptados').modal('show');
+                return;
+            }
+            
+            // Validar si no hay datos
+            if (response.length === 0) {
+                contenidoModal = `
+                    <div class="text-center p-4">
+                       <h5 class="texto-servicios-solicitados" style="color: white;">No hay solicitudes disponibles para este servicio.</h5>
+                    </div>`;
+                contenedor.innerHTML = contenidoModal;
+                $('#miModalaceptados').modal('show');
+                return;
+            }
+
+            // Limpiar el contenido previo antes de agregar las nuevas tarjetas
+            contenedor.innerHTML = "";
+
+            // Crear tarjetas dinámicas para los trabajos postulados
+            let contenidoTarjetas = `<div class="row">`;
+            $.each(response, function (index, trabajo) {
+                contenidoTarjetas += `
+                    <div class="col-sm-12 col-md-6 col-lg-4 mb-3">
+                        <div class="card-container-mis_l card-hoover tamanio-card" id="card-${trabajo.trabajoID}">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title text-center">Detalles del trabajo y Respuesta</h5>
+                                    <div class="contenido-extra mt-3">
+                                        <p><strong><i class="fa-solid fa-calendar"></i> Fecha de Postulación:</strong> ${trabajo.fechaPostulacion}</p>
+                                        <p><strong><i class="fa-regular fa-file-lines"></i> Descripción del Trabajo:</strong> ${trabajo.descripcionTrabajo}</p>
+                                        <p><strong><i class="fa-solid fa-comment"></i> Comentario:</strong> ${trabajo.comentario}</p>
+                                        <p><strong><i class="fa-solid fa-user"></i> Nombre Persona Servicio:</strong> ${trabajo.nombrePersona}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`;
+            });
+            contenidoTarjetas += `</div>`;
+
+            contenedor.innerHTML = contenidoTarjetas;
+
+            // Mostrar el modal
+            $('#miModalaceptados').modal('show');
+        },
+        error: function (xhr, status) {
+            Swal.fire("Hubo un problema al cargar los trabajos postulados aceptados.", "", "error");
+        }
+    });
+}
+
+// function mostrarSolicitudes() {
+//     // Realizar la solicitud AJAX
+//     $.ajax({
+//         url: '/ContratoRespondido/ListadoTrabajosPostulados',
+//         data: { trabajoID: 123 }, // Asegúrate de que este ID sea correcto
+//         type: 'GET',
+//         dataType: 'json',
+//         success: function (respuesta) {
+//             // Mostrar trabajos aceptados
+//             mostrarTrabajos(respuesta.aceptados, 'aceptados');
+
+//             // Mostrar trabajos rechazados
+//             mostrarTrabajos(respuesta.rechazados, 'rechazados');
+//         },
+//         error: function () {
+//             Swal.fire("Hubo un problema al cargar las solicitudes.", "", "error");
+//         }
+//     });
+// }
+
+
+
+
+
+
+// function mostrarSolicitudes(estado) {
+//     // Definir el texto del título según el estado
+//     let titulo = estado === 1 ? 'Solicitudes Aceptadas' : 'Solicitudes Rechazadas';
+
+
+//     // Realizar la solicitud AJAX para cargar las solicitudes según el estado
+//     $.ajax({
+//         url: '/ContratoRespondido/EstadoSolicitud', // Asegúrate de que esta ruta sea la correcta
+//         data: { trabajoID: 123, estado: estado }, // Pasar el estado (1 = Aceptado, 2 = Rechazado)
+//         type: 'GET',
+//         dataType: 'json',
+//         success: function (trabajosPostulados) {
+//             if (trabajosPostulados.length === 0) {
+//                 document.getElementById("respuestaTrabajosPostulados").innerHTML = `
+//                     <div class="alert alert-warning text-center">
+//                         No hay solicitudes para mostrar.
+//                     </div>`;
+//             } else {
+//                 // Construir el contenido de las tarjetas
+//                 let contenidoTarjetas = `<div class="row">`;
+//                 trabajosPostulados.forEach(function (trabajo) {
+//                     contenidoTarjetas += `
+//                         <div class="col-sm-12 col-md-6 col-lg-4 mb-3">
+//                             <div class="card">
+//                                 <div class="card-body">
+//                                     <h5 class="card-title text-center">Detalles del trabajo y respuesta</h5>
+//                                     <div class="contenido-extra mt-3">
+//                                         <p><strong><i class="fa-solid fa-calendar"></i> Fecha de Postulación:</strong> ${trabajo.FechaPostulacion}</p>
+//                                         <p><strong><i class="fa-regular fa-file-lines"></i> Descripción del Trabajo:</strong> ${trabajo.DescripcionTrabajo}</p>
+//                                         <p><strong><i class="fa-solid fa-comment"></i> Comentario:</strong> ${trabajo.ComentarioTrabajo}</p>
+//                                         <p><strong><i class="fa-solid fa-user"></i> Nombre Persona Servicio:</strong> ${trabajo.NombrePersonaServicio} ${trabajo.ApellidoPersonaServicio}</p>
+//                                         <p><strong><i class="fa-solid fa-info-circle"></i> Estado de la Solicitud:</strong> ${trabajo.EstadoSolicitud}</p>
+//                                     </div>
+//                                 </div>
+//                             </div>
+//                         </div>`;
+//                 });
+//                 contenidoTarjetas += `</div>`;
+//                 document.getElementById("respuestaTrabajosPostulados").innerHTML = contenidoTarjetas;
+//             }
+
+//             // Mostrar el modal
+//             $('#modalTrabajos').modal('show');
+//         },
+//         error: function () {
+//             Swal.fire("Hubo un problema al cargar las solicitudes.", "", "error");
+//         }
+//     });
+// }
+
+
+
+
 
 
 

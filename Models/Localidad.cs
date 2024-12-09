@@ -13,6 +13,8 @@ public class Localidad
     public virtual Provincia Provincia{ get; set; }
 
     public virtual ICollection <Persona> Personas { get; set; }
+
+    
 }
 
 public class VistaLocalidades

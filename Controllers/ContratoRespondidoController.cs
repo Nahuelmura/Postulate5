@@ -198,7 +198,104 @@ namespace Postulate.Controllers
 
 
 
-        public async Task<JsonResult> ListadoServicioSolicitado(int servicioID)
+ public async Task<JsonResult> ListadoServicioSolicitado(int servicioID)
+{
+    var usuarioLogueado = await _userManager.GetUserAsync(HttpContext.User);
+
+    var correoUsuarioLogueado = usuarioLogueado.Email;
+    var personaLogueada = _context.Personas.FirstOrDefault(p => p.Email == correoUsuarioLogueado);
+    var personaIDLogueada = personaLogueada.PersonaID;
+
+    // Incluir la relación Trabajo -> Persona para obtener el solicitante del trabajo
+    var datosServicios = _context.ContratoRespondidos
+        .Include(e => e.Trabajo)
+        .ThenInclude(t => t.Persona) // Persona que solicitó el trabajo
+        .Include(e => e.Servicio)
+        .ThenInclude(s => s.Persona) // Persona que ofrece el servicio
+        .Where(e => e.Servicio.PersonaID == personaIDLogueada && e.ServicioID == servicioID)
+        .ToList();
+
+    if (!datosServicios.Any())
+    {
+        return Json(new { success = false, message = "No hay solicitudes para este servicio" });
+    }
+
+    var DatosServicio = datosServicios.Select(e => new ContratoRespondidoVista
+    {
+        ContratoRespondidoID = e.ContratoRespondidoID,
+        ServicioID = e.ServicioID,
+        ProfesionID = e.ProfesionID,
+        StringFechaMatch = e.FechaMatch.ToString("dd/MM/yyyy"),
+        NombrePersona = e.Trabajo.Persona.Nombre, // Nombre de la persona asociada al contrato
+        Email = e.Trabajo.Persona.Email,
+        DireccionTrabajo = e.Trabajo.Direccion,
+        HoraSolicitadaTrabajo = e.Trabajo.Hora.ToString("HH:mm"),
+        FechaSolicitadaTrabajo = e.Trabajo.Fecha.ToString("dd/MM/yyyy"),
+        DescripcionTrabajo = e.Trabajo.Descripcion,
+        ComentarioTrabajo = e.Trabajo.Comentario,
+        TelefonoPersona = e.Trabajo.Persona.Telefono.ToString(), // Teléfono del solicitante del trabajo
+        Respuesta = e.Respuesta,
+        RespuestaDesolicitud = e.RespuestaDesolicitud,
+        RespuestaDesolicitudString = e.RespuestaDesolicitud.ToString().ToUpper()
+    }).ToList();
+
+    return Json(DatosServicio);
+}
+
+
+//ACA CREAMOS REGISTROS DE ACEPTADOS Y RECHAZADOS
+
+        public async Task<JsonResult> ListadoServicioSolicitadoAceptado(int servicioID)
+        {
+            var usuarioLogueado = await _userManager.GetUserAsync(HttpContext.User);
+
+            var correoUsuarioLogueado = usuarioLogueado.Email;
+            var personaLogueada = _context.Personas.FirstOrDefault(p => p.Email == correoUsuarioLogueado);
+            var personaIDLogueada = personaLogueada.PersonaID;
+
+
+
+
+  var datosServicios = _context.ContratoRespondidos
+        .Include(e => e.Trabajo)
+        .ThenInclude(t => t.Persona) // Persona que solicitó el trabajo
+        .Include(e => e.Servicio)
+        .ThenInclude(s => s.Persona) // Persona que ofrece el servicio
+  .Where(e => e.Servicio.PersonaID == personaIDLogueada && e.ServicioID == servicioID && e.RespuestaDesolicitud == Estado.Aceptado)
+        .ToList();
+      
+
+
+              if (!datosServicios.Any())
+    {
+        return Json(new { success = false, message = "No hay solicitudes para este servicio" });
+    }
+
+    var DatosServicio = datosServicios.Select(e => new ContratoRespondidoVista
+    {
+        ContratoRespondidoID = e.ContratoRespondidoID,
+        ServicioID = e.ServicioID,
+        ProfesionID = e.ProfesionID,
+        StringFechaMatch = e.FechaMatch.ToString("dd/MM/yyyy"),
+        NombrePersona = e.Trabajo.Persona.Nombre, // Nombre de la persona asociada al contrato
+        Email = e.Trabajo.Persona.Email,
+        DireccionTrabajo = e.Trabajo.Direccion,
+        HoraSolicitadaTrabajo = e.Trabajo.Hora.ToString("HH:mm"),
+        FechaSolicitadaTrabajo = e.Trabajo.Fecha.ToString("dd/MM/yyyy"),
+        DescripcionTrabajo = e.Trabajo.Descripcion,
+        ComentarioTrabajo = e.Trabajo.Comentario,
+        TelefonoPersona = e.Trabajo.Persona.Telefono.ToString(), // Teléfono del solicitante del trabajo
+        Respuesta = e.Respuesta,
+        RespuestaDesolicitud = e.RespuestaDesolicitud,
+        RespuestaDesolicitudString = e.RespuestaDesolicitud.ToString().ToUpper()
+    }).ToList();
+
+            return Json(DatosServicio);
+        }
+
+
+
+  public async Task<JsonResult> ListadoServicioSolicitadoRechazado(int servicioID)
         {
             var usuarioLogueado = await _userManager.GetUserAsync(HttpContext.User);
 
@@ -207,40 +304,41 @@ namespace Postulate.Controllers
             var personaIDLogueada = personaLogueada.PersonaID;
 
       
-            var datosServicios = _context.ContratoRespondidos
-                .Include(e => e.Persona)
-                .Include(e => e.Trabajo)
-                .Include(e => e.Servicio)
-                .Where(e => e.Servicio.PersonaID == personaIDLogueada && e.ServicioID == servicioID) 
-                .ToList();
+       var datosServicios = _context.ContratoRespondidos
+        .Include(e => e.Trabajo)
+        .ThenInclude(t => t.Persona) // Persona que solicitó el trabajo
+        .Include(e => e.Servicio)
+        .ThenInclude(s => s.Persona) // Persona que ofrece el servicio
+  .Where(e => e.Servicio.PersonaID == personaIDLogueada && e.ServicioID == servicioID && e.RespuestaDesolicitud == Estado.Rechazado)
+        .ToList();
+      
 
 
-                if (datosServicios == null )
-             {
-     return  Json(new { success = false,message ="no hay solicitudes a este servicio"});
-            }
+              if (!datosServicios.Any())
+    {
+        return Json(new { success = false, message = "No hay solicitudes para este servicio" });
+    }
 
-            var DatosServicio = datosServicios.Select(e => new ContratoRespondidoVista
-            {
-                ContratoRespondidoID = e.ContratoRespondidoID,
-                ServicioID = e.ServicioID,
-                ProfesionID = e.ProfesionID,
-                StringFechaMatch = e.FechaMatch.ToString("dd/MM/yyyy"),
-                NombrePersona = e.Persona.Nombre,
-                DireccionTrabajo = e.Trabajo.Direccion,
-                HoraSolicitadaTrabajo = e.Trabajo.Hora.ToString("HH:mm"),
-                FechaSolicitadaTrabajo = e.Trabajo.Fecha.ToString("dd/MM/yyyy"),
-                DescripcionTrabajo = e.Trabajo.Descripcion,
-                ComentarioTrabajo = e.Trabajo.Comentario,
-                Respuesta = e.Respuesta,
-                RespuestaDesolicitud = e.RespuestaDesolicitud,
-                RespuestaDesolicitudString = e.RespuestaDesolicitud.ToString().ToUpper()
-            }).ToList();
-
+    var DatosServicio = datosServicios.Select(e => new ContratoRespondidoVista
+    {
+        ContratoRespondidoID = e.ContratoRespondidoID,
+        ServicioID = e.ServicioID,
+        ProfesionID = e.ProfesionID,
+        StringFechaMatch = e.FechaMatch.ToString("dd/MM/yyyy"),
+        NombrePersona = e.Trabajo.Persona.Nombre, // Nombre de la persona asociada al contrato
+        Email = e.Trabajo.Persona.Email,
+        DireccionTrabajo = e.Trabajo.Direccion,
+        HoraSolicitadaTrabajo = e.Trabajo.Hora.ToString("HH:mm"),
+        FechaSolicitadaTrabajo = e.Trabajo.Fecha.ToString("dd/MM/yyyy"),
+        DescripcionTrabajo = e.Trabajo.Descripcion,
+        ComentarioTrabajo = e.Trabajo.Comentario,
+        TelefonoPersona = e.Trabajo.Persona.Telefono.ToString(), // Teléfono del solicitante del trabajo
+        Respuesta = e.Respuesta,
+        RespuestaDesolicitud = e.RespuestaDesolicitud,
+        RespuestaDesolicitudString = e.RespuestaDesolicitud.ToString().ToUpper()
+    }).ToList();
             return Json(DatosServicio);
         }
-
-
 
 
 
@@ -309,11 +407,14 @@ namespace Postulate.Controllers
 
             // Obtener los trabajos donde la persona logueada ha postulado a los servicios de otras personas
             var trabajosPostulados = _context.ContratoRespondidos
-                .Include(c => c.Trabajo)
-                .Include(c => c.Servicio)
-                .ThenInclude(s => s.Persona)
-                .Where(c => c.Trabajo.PersonaID == personaIDLogueada && c.TrabajoID == trabajoID)
-                .ToList();
+        .Include(c => c.Trabajo)
+        .Include(c => c.Servicio)
+        .ThenInclude(s => s.Persona)
+        .Where(c => c.Trabajo.PersonaID == personaIDLogueada && c.TrabajoID == trabajoID)
+        .OrderBy(c => c.RespuestaDesolicitud == Estado.Pendiente ? 0 : 1) // Priorizar pendientes
+        .ThenBy(c => c.FechaMatch) // Ordenar secundariamente por fecha si es necesario
+        .ToList();
+
 
 
             var trabajosConRespuestas = trabajosPostulados.Select(c => new
@@ -338,6 +439,86 @@ namespace Postulate.Controllers
 
 
 
+
+
+
+
+   public JsonResult Buscartrabajorechazado(int trabajoID, int servicioID)
+{
+    // Obtener el usuario logueado
+    var usuarioLogueado = _userManager.GetUserAsync(HttpContext.User).Result;
+    var correoUsuarioLogueado = usuarioLogueado?.Email;
+
+    // Obtener la persona asociada al usuario logueado
+    var personaLogueada = _context.Personas.FirstOrDefault(p => p.Email == correoUsuarioLogueado);
+    var personaIDLogueada = personaLogueada?.PersonaID;
+    var nombrePersonaLogueada = personaLogueada?.Nombre;
+
+    ViewBag.PersonaIDLogueada = personaIDLogueada;
+    ViewBag.NombrePersonaLogueada = nombrePersonaLogueada;
+
+    // Obtener trabajos postulados filtrando por rechazados
+    var trabajosPostulados = _context.ContratoRespondidos
+        .Include(c => c.Trabajo)
+        .Include(c => c.Servicio)
+        .ThenInclude(s => s.Persona)
+        .Where(c => c.Trabajo.PersonaID == personaIDLogueada
+                    && c.TrabajoID == trabajoID
+                    && (int)c.RespuestaDesolicitud == 3) // Comparar directamente con el valor 3
+        .ToList();
+
+    // Crear una lista de objetos para mostrar
+    var contratosRespondidosMostrar = trabajosPostulados.Select(repuesta => new ContratoRespondidoVista
+    {
+        ServicioID = repuesta.ServicioID,
+        NombrePersona = repuesta.Servicio.Persona.Nombre,
+        ApellidoPersona = repuesta.Servicio.Persona.Apellido,
+        DescripcionTrabajo = repuesta.Trabajo.Descripcion,
+        RespuestaDesolicitud = repuesta.RespuestaDesolicitud,
+        RespuestaDesolicitudString = repuesta.RespuestaDesolicitud.ToString()
+    }).ToList();
+
+    return Json(contratosRespondidosMostrar);
+}
+
+
+   public JsonResult BuscartrabajoAceptado(int trabajoID, int servicioID)
+{
+    // Obtener el usuario logueado
+    var usuarioLogueado = _userManager.GetUserAsync(HttpContext.User).Result;
+    var correoUsuarioLogueado = usuarioLogueado?.Email;
+
+    // Obtener la persona asociada al usuario logueado
+    var personaLogueada = _context.Personas.FirstOrDefault(p => p.Email == correoUsuarioLogueado);
+    var personaIDLogueada = personaLogueada?.PersonaID;
+    var nombrePersonaLogueada = personaLogueada?.Nombre;
+
+    ViewBag.PersonaIDLogueada = personaIDLogueada;
+    ViewBag.NombrePersonaLogueada = nombrePersonaLogueada;
+
+    // Obtener trabajos postulados filtrando por rechazados
+    var trabajosPostulados = _context.ContratoRespondidos
+        .Include(c => c.Trabajo)
+        .Include(c => c.Servicio)
+        .ThenInclude(s => s.Persona)
+        .Where(c => c.Trabajo.PersonaID == personaIDLogueada
+                    && c.TrabajoID == trabajoID
+                    && (int)c.RespuestaDesolicitud == 2) // Comparar directamente con el valor 3
+        .ToList();
+
+    // Crear una lista de objetos para mostrar
+    var contratosRespondidosMostrar = trabajosPostulados.Select(repuesta => new ContratoRespondidoVista
+    {
+        ServicioID = repuesta.ServicioID,
+        NombrePersona = repuesta.Servicio.Persona.Nombre,
+        ApellidoPersona = repuesta.Servicio.Persona.Apellido,
+        DescripcionTrabajo = repuesta.Trabajo.Descripcion,
+        RespuestaDesolicitud = repuesta.RespuestaDesolicitud,
+        RespuestaDesolicitudString = repuesta.RespuestaDesolicitud.ToString()
+    }).ToList();
+
+    return Json(contratosRespondidosMostrar);
+}
 
 
         public async Task<JsonResult> CardTrabajosDetalle(int trabajoID, string NombreProfesion)

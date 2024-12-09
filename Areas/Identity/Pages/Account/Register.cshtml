@@ -18,11 +18,22 @@ body {
 <section id="register">
 
     
+       <div class=" "> <!-- Contenedor del texto que cambia -->
+                        <div class="" id="textoSuperpuesto_loguin">
+                            haz una cuenta
+                        </div>
+        </div>
+
+
+    
 
     <div class="register-box">
         
         <form id="" asp-route-returnUrl="@Model.ReturnUrl" method="post">
-            <h2 class="h2l">Postulate.Com</h2>
+            <h2 class="h2l">Postula  <i class="fa-solid fa-hammer custom-icon"></i>e.Com</h2>
+
+
+            
                 <h3 class="h3l">Crear cuenta</h3>
             <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
             <div class="input-register">
@@ -66,5 +77,53 @@ body {
     }
 
     setInterval(changeBackground, 5000); // Cambia la imagen cada 5 segundos
+
+
+
+
+          const mensajes1 = [
+             'Regístrate  gratis',
+    'Busca profesionales',
+    'Solicita la ayuda de profesionales',
+    'Ofrece tus servicios y habilidades',
+];
+
+const mensajes2 = [
+    'Ingresa',
+    'Regístrate  gratis',
+   
+];
+
+let currentTextIndex1 = 0;
+let currentTextIndex2 = 0;
+
+function changeText1() {
+    const textoElemento1 = document.getElementById('textoSuperpuesto_loguin');
+    textoElemento1.classList.add('transition-text');
+
+    setTimeout(() => {
+        currentTextIndex1 = (currentTextIndex1 + 1) % mensajes1.length;
+        textoElemento1.textContent = mensajes1[currentTextIndex1];
+        textoElemento1.classList.remove('transition-text');
+    }, 1000);
+}
+
+function changeText2() {
+    const textoElemento2 = document.getElementById('textoSuperpuesto_loguin_lado');
+    textoElemento2.classList.add('transition-text');
+
+    setTimeout(() => {
+        currentTextIndex2 = (currentTextIndex2 + 1) % mensajes2.length;
+        textoElemento2.textContent = mensajes2[currentTextIndex2];
+        textoElemento2.classList.remove('transition-text');
+    }, 1000);
+}
+
+// Cambia el texto en intervalos intercalados
+setInterval(changeText1, 5000); // Cambia el texto del primer elemento cada 5 segundos
+setTimeout(() => {
+    setInterval(changeText2, 5000); // Cambia el texto del segundo elemento cada 5 segundos, con un retraso inicial
+}, 2500); // Retraso de 2.5 segundos para intercalar
+
 </script>
 }

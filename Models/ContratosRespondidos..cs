@@ -58,6 +58,8 @@ namespace Postulate.Models
 
         public string? NombreProfesion { get; set; }
 
+        public string ? Email { get; set; }
+
 
         public int PersonaID { get; set; }
 
@@ -74,6 +76,9 @@ namespace Postulate.Models
         public string? HoraSolicitadaTrabajo { get; set; }
 
         public string? FechaSolicitadaTrabajo { get; set; }
+
+        
+        public string? TelefonoPersona { get; set; }
 
         public string? DescripcionServicio { get; set; }
 

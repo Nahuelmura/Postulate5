@@ -381,11 +381,16 @@ function ListadoServicioSolicitado(servicioID) {
                                     <h5 class="card-title text-center">Servicio Solicitado</h5>
                                     <div class="contenido-extra mt-3">
                                         <p><strong><i class="fa-solid fa-calendar"></i> Fecha del Match:</strong> ${traerservicio.stringFechaMatch}</p>
+                                        <p><strong><i class="fa-solid fa-calendar"></i> Nombre del solicitante:</strong> ${traerservicio.nombrePersona}</p>                          
+                                           <p><strong><i class="fa-solid fa-calendar"></i> Nombre del solicitante:</strong> ${traerservicio.email}</p>Email
+
                                         <p><strong><i class="fa-regular fa-file-lines"></i> Descripción del Trabajo:</strong> ${traerservicio.descripcionTrabajo}</p>
                                         <p><strong><i class="fa-solid fa-comment"></i> Comentario:</strong> ${traerservicio.comentarioTrabajo}</p>
                                         <p><strong><i class="fa-solid fa-map-marker-alt"></i> Dirección:</strong> ${traerservicio.direccionTrabajo}</p>
                                         <p><strong><i class="fa-solid fa-clock"></i> Hora Solicitada:</strong> ${traerservicio.horaSolicitadaTrabajo}</p>
                                         <p><strong><i class="fa-solid fa-calendar-alt"></i> Fecha Solicitada:</strong> ${traerservicio.fechaSolicitadaTrabajo}</p>
+                                         <p><strong><i class="fa-solid fa-calendar-alt"></i> Telefono:</strong> ${traerservicio.telefonoPersona}</p>
+                                        
                                         <p class="respuesta"><strong><i class="fa-solid fa-info-circle"></i> Respuesta:</strong> ${traerservicio.respuestaDesolicitudString}</p>
                                         <div class="d-flex align-items-center gap-2 mt-3">
                                             <button type="button" class="btn btn-outline-success" onclick=" AceptarRespuesta (${traerservicio.contratoRespondidoID})">
@@ -504,6 +509,146 @@ function Rechazar(contratoRespondidoID) {
 }
 
 
+
+// ACA HACEMOS LOS REGISTROS
+
+function ListadoServicioSolicitadoAceptado(servicioID) {
+    $.ajax({
+        url: '../../ContratoRespondido/ListadoServicioSolicitadoAceptado',
+        type: 'POST',
+        data: { servicioID: servicioID },
+        dataType: 'json',
+        success: function(traerServicios) {
+            let contenidoModal = ``;
+
+            if (traerServicios.success === false) {
+                // Mostrar mensaje si el backend devuelve un mensaje de error
+                contenidoModal = `
+                <div class="text-center p-4">
+                    <h5 class="texto-servicios-solicitados">${traerServicios.message}</h5>
+                </div>`;
+            } else if (traerServicios.length === 0) {
+                // Mostrar mensaje si no hay datos
+                contenidoModal = `
+                <div class="text-center p-4">
+                  <h5 class="texto-servicios-solicitados" style="color: white;">No hay solicitudes disponibles para este servicio.</h5>
+                </div>`;
+            } else {
+            
+                $.each(traerServicios, function(index, traerservicio) {
+                    contenidoModal += `
+                    <div class="col-sm-12 col-md-3 col-lg-4 mb-3">
+                        <div class="card-container-mis_l card-hoover tamanio-card" id="card-${traerservicio.contratoRespondidoID}">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title text-center">Servicio Solicitado</h5>
+                                    <div class="contenido-extra mt-3">
+                                        <p><strong><i class="fa-solid fa-calendar"></i> Fecha del Match:</strong> ${traerservicio.stringFechaMatch}</p>
+                                        <p><strong><i class="fa-solid fa-calendar"></i> Nombre del solicitante:</strong> ${traerservicio.nombrePersona}</p>                          
+                                           <p><strong><i class="fa-solid fa-calendar"></i> Nombre del solicitante:</strong> ${traerservicio.email}</p>Email
+
+                                        <p><strong><i class="fa-regular fa-file-lines"></i> Descripción del Trabajo:</strong> ${traerservicio.descripcionTrabajo}</p>
+                                        <p><strong><i class="fa-solid fa-comment"></i> Comentario:</strong> ${traerservicio.comentarioTrabajo}</p>
+                                        <p><strong><i class="fa-solid fa-map-marker-alt"></i> Dirección:</strong> ${traerservicio.direccionTrabajo}</p>
+                                        <p><strong><i class="fa-solid fa-clock"></i> Hora Solicitada:</strong> ${traerservicio.horaSolicitadaTrabajo}</p>
+                                        <p><strong><i class="fa-solid fa-calendar-alt"></i> Fecha Solicitada:</strong> ${traerservicio.fechaSolicitadaTrabajo}</p>
+                                         <p><strong><i class="fa-solid fa-calendar-alt"></i> Telefono:</strong> ${traerservicio.telefonoPersona}</p>
+                                        
+                                        
+                                        <p class="respuesta"><strong><i class="fa-solid fa-info-circle"></i> Respuesta:</strong> ${traerservicio.respuestaDesolicitudString}</p>
+                                        <div class="d-flex align-items-center gap-2 mt-3">
+                                         
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`;
+                });
+            }
+
+            const serviciosSolicitados = document.getElementById("ServiciosSolicitadosaceptados");
+            serviciosSolicitados.innerHTML = contenidoModal;
+
+      
+            $('#modalServicioSolicitadoaceptados').modal('show');
+        },
+        error: function(xhr, status) {
+            alert('Hubo un problema al cargar las solicitudes.');
+        }
+    });
+}
+
+
+
+
+
+function ListadoServicioSolicitadoRechazado(servicioID) {
+    $.ajax({
+        url: '../../ContratoRespondido/ListadoServicioSolicitadoRechazado',
+        type: 'POST',
+        data: { servicioID: servicioID },
+        dataType: 'json',
+        success: function(traerServicios) {
+            let contenidoModal = ``;
+
+            if (traerServicios.success === false) {
+                // Mostrar mensaje si el backend devuelve un mensaje de error
+                contenidoModal = `
+                <div class="text-center p-4">
+                    <h5 class="texto-servicios-solicitados">${traerServicios.message}</h5>
+                </div>`;
+            } else if (traerServicios.length === 0) {
+                // Mostrar mensaje si no hay datos
+                contenidoModal = `
+                <div class="text-center p-4">
+                    <h5 class="texto-servicios-solicitados" style="color: white;">No hay solicitudes disponibles para este servicio.</h5>
+                </div>`;
+            } else {
+            
+                $.each(traerServicios, function(index, traerservicio) {
+                    contenidoModal += `
+                    <div class="col-sm-12 col-md-3 col-lg-4 mb-3">
+                        <div class="card-container-mis_l card-hoover tamanio-card" id="card-${traerservicio.contratoRespondidoID}">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title text-center">Servicio Solicitado</h5>
+                                    <div class="contenido-extra mt-3">
+                                        <p><strong><i class="fa-solid fa-calendar"></i> Fecha del Match:</strong> ${traerservicio.stringFechaMatch}</p>
+                                        <p><strong><i class="fa-solid fa-calendar"></i> Nombre del solicitante:</strong> ${traerservicio.nombrePersona}</p>                          
+                                           <p><strong><i class="fa-solid fa-calendar"></i> Nombre del solicitante:</strong> ${traerservicio.email}</p>Email
+
+                                        <p><strong><i class="fa-regular fa-file-lines"></i> Descripción del Trabajo:</strong> ${traerservicio.descripcionTrabajo}</p>
+                                        <p><strong><i class="fa-solid fa-comment"></i> Comentario:</strong> ${traerservicio.comentarioTrabajo}</p>
+                                        <p><strong><i class="fa-solid fa-map-marker-alt"></i> Dirección:</strong> ${traerservicio.direccionTrabajo}</p>
+                                        <p><strong><i class="fa-solid fa-clock"></i> Hora Solicitada:</strong> ${traerservicio.horaSolicitadaTrabajo}</p>
+                                        <p><strong><i class="fa-solid fa-calendar-alt"></i> Fecha Solicitada:</strong> ${traerservicio.fechaSolicitadaTrabajo}</p>
+                                         <p><strong><i class="fa-solid fa-calendar-alt"></i> Telefono:</strong> ${traerservicio.telefonoPersona}</p>
+                                        
+                                        
+                                        <p class="respuesta"><strong><i class="fa-solid fa-info-circle"></i> Respuesta:</strong> ${traerservicio.respuestaDesolicitudString}</p>
+                                        <div class="d-flex align-items-center gap-2 mt-3">
+                                         
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`;
+                });
+            }
+
+            const serviciosSolicitados = document.getElementById("ServiciosSolicitadoRechazados");
+            serviciosSolicitados.innerHTML = contenidoModal;
+
+      
+            $('#modalServicioSolicitadorechazado').modal('show');
+        },
+        error: function(xhr, status) {
+            alert('Hubo un problema al cargar las solicitudes.');
+        }
+    });
+}
 
 
 
